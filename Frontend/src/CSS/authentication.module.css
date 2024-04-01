@@ -1,0 +1,160 @@
+.authenticationContainer{
+    display: flex;
+    height: 90dvh;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--background-dark-color);
+    color:#FFFF;
+    font-family:  Helvetica, sans-serif;
+}
+.authenticationBox{
+   /* From https://css.glass */
+background:  hsla(141, 64%, 10%, 0.1);
+margin: 0 1em;
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(4.2px);
+-webkit-backdrop-filter: blur(4.2px);
+border: 1px solid rgba(255, 255, 255, 0.38);
+    width: 100%;
+
+    max-width: 350px;
+    padding: 2em;
+}
+.authenticationComponenet{
+    min-height: 230px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btnBox{
+    display: flex;
+    gap: 1em;
+    margin-bottom: 1em;
+}
+.activeButton{
+    background-color: var(--primary-color) !important;
+    border-bottom:2px solid  #FFF !important;
+}
+.inactiveButton{
+    background-color: var(--secondary-color) !important;
+}
+.btnBox button{
+    width: 100%;
+    padding: .5em;
+    font-size: 1.1rem;
+    border: none;
+    background-color: var(--secondary-color);
+    color: #FFF;
+   border-radius: 10px;
+    
+}
+.logoBox{
+    display: flex;
+    gap: 1em;
+    align-items: center;
+    margin-bottom: 1em
+}
+.logoBox img{
+    width: 50px;
+    height: 50px;
+}
+
+
+
+
+
+
+@media (max-width:600px){
+    .btnBox button{
+        font-size: 1rem;
+    }
+}
+
+
+
+
+/* Signup Form  and login form */
+.formWrapper{
+    width: 100%;
+}
+.formContainer{
+    width: 100%;
+   color: var(--white-color) !important;
+   /* color is #FFF */
+}
+.row{
+    
+    display: flex;
+    margin-bottom: 1em;
+}
+.row input {
+   width: 100%;
+  font-size: 1.1rem;
+  padding: .4em;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  color: inherit;
+  border-bottom: 2px solid rgba(128, 128, 128, 0.584);
+  &::placeholder{
+    color: #ffffffc9;
+  }
+}
+.row button{
+    margin-top: 1em;
+    width: 100%;
+    padding: .5em;
+    font-size: 1.1rem;
+    border: none;
+    background-color: var(--primary-color);
+    color: #FFF;
+  border-radius: 10px;
+}
+
+
+
+
+
+
+
+/* VerifyOTP styles */
+.iconContainer{
+    width: 2em;
+    height: 2em;
+    margin-bottom: 1.5em;
+}
+.otpinput {
+    width: 40px !important;
+   background: transparent;
+    height: 40px;
+    font-size: 18px;
+    text-align: center;
+    border:none;
+    border-bottom: 2px solid var(--white-color);
+    margin: 0 auto;
+    outline: none;
+    color: var(--white-color);
+}
+
+.otpinputcontainer {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+  .otpInput {
+    width: 100%;
+  }
+  .verifyBtn{
+    width: 100%;
+  }
+  .verifyBtn button{
+    width: 100%;
+    padding: .5em;
+    font-size: 1.1rem;
+    border: none;
+    background-color: var(--secondary-color);
+    color: #FFF;
+   border-radius: 10px;
+    margin-top: 2em;
+  }

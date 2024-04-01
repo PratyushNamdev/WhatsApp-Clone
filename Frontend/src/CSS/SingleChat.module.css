@@ -1,0 +1,44 @@
+.imgBox{
+    width: 3em;
+    height: 3em;
+}
+.chatWrapper{
+    display: flex;
+    align-items: center;
+    padding: .8em 1em;
+    gap: .8em;
+    justify-content: space-between;
+    &:hover{
+        cursor: pointer;
+    }
+    
+}
+.chatInfo{
+    font-size: 1.2em;
+    width: 80%;
+   
+}
+.latestMessage{
+    font-size: 15px;
+    opacity: .7;
+}
+.chatInfo > div{
+    width: 100%;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+
+   height: 28px;
+}
+.time{
+    font-size: 11px;
+}
+.unseenMessageCount{
+    width: 25px;
+    padding: 0.4em;
+  border-radius:1.1em ;
+    text-align: center;
+    font-size: 13px;
+  
+    background-color: var(--unread-marker-background);
+}

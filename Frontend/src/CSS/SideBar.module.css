@@ -1,0 +1,87 @@
+.editSidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: #fff;
+  width: 0px;
+  max-width: 428px;
+  height: calc(100vh - 60px);
+  transition: all 0.3s ease-in;
+  overflow: hidden;
+  z-index: 1000;
+  height: 100dvh;
+}
+
+.editSidebar.active {
+  width: 100%;
+}
+.closeIconWrapper {
+  background-color: var(--header-background-color);
+  height: 2em;
+  color: #f0f0f0c1;
+
+  width: 100%;
+  display: flex;
+  padding: 3.5em 1em 1.5em 1em;
+  align-items: center;
+  font-size: 1.5em;
+}
+.closeIconWrapper span {
+    margin-top: .29em;
+    width: 40px;
+}
+.closeIconWrapper span :hover {
+  cursor: pointer;
+}
+.searchBox{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1em;
+    background-color: var(--search-input-container-background) !important;
+}
+.searchBox input{
+    font-size: 1em;
+    color: var(  --white-color);
+    border: none;
+    outline: none;
+    padding: .5em 1em;
+    width: 90%;
+    background-color:  rgba(255, 255,255,.16) ;
+    border-radius:10px;
+}
+
+.sideBarBody{
+  
+    min-height: calc(100dvh - 120px);
+    background-color: var(--search-input-container-background) !important;
+}
+
+/* 
+Search User componenet search Rersults css */
+
+.searchResultsContainer{
+  display: flex;
+  padding: 1em;
+  gap: .5em;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #ffffff4b;
+  margin: 0 1em;
+ &:hover{
+  cursor: pointer;
+ }
+}
+.imgBox{
+  
+   width: 3em;
+  height: 3em;
+
+}
+.info{
+  width: 80%;
+}
+.email{
+  font-size: 15px;
+  letter-spacing: .05em;
+}

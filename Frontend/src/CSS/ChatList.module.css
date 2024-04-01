@@ -1,0 +1,55 @@
+.chatListContainer{
+   display: flex;
+   flex-direction: column;
+  
+   height: 100%;
+}
+.header{
+    display: flex;
+    padding: .5em;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--header-background-color);
+}
+.imgContainer{
+    height: 40px;
+    width: 40px;
+    margin-left: .6em;
+}
+.iconContainer{
+    width: 100%;
+    display: flex;
+    gap: .8em;
+    align-items: center;
+    justify-content: flex-end;
+}
+.searchIconContainer{
+    height: 24px;
+    width: 24px;
+  
+  padding: .337em;
+    background-color:  rgba(255, 255,255,.16) ;
+    box-sizing: unset;
+    border-radius: 10px 0 0 10px;
+}
+.searchBox{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1em;
+    background-color: var(--search-input-container-background) !important;
+}
+.searchBox input{
+    font-size: 1em;
+    color: var(  --white-color);
+    border: none;
+    outline: none;
+    padding: .5em 1em;
+    width: 90%;
+    background-color:  rgba(255, 255,255,.16) ;
+    border-radius: 0 8px 8px 0;
+}
+.chatListing{
+    height: 100%;
+    background-color: var(--search-input-container-background)
+}

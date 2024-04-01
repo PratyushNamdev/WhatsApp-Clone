@@ -1,0 +1,179 @@
+.chatBoxContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+.chatBoxNav {
+  display: flex;
+  padding: 0.5em;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--header-background-color);
+  width: 100%;
+}
+.imgBox {
+  height: 40px;
+  width: 40px;
+  margin-left: 0.6em;
+}
+.userInfoBox {
+  gap: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.messageBox {
+  position: relative; 
+  color: white;
+  height: 100%;
+  width: 100%;
+  overflow-y: scroll; 
+  scrollbar-width: none;
+}
+
+ .backgroundImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.1; 
+  background-image: url("https://res.cloudinary.com/dgxvtemh2/image/upload/v1708878117/whatsappClone/whatsapp_background_wozgxw.png");
+  background-size: contain; 
+}
+
+.messageBoxContent {
+ 
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll; 
+  scrollbar-width: none; 
+  height: 100%;
+  
+} 
+
+
+
+/* scrollFeed Component css */
+.scrollableFeed::-webkit-scrollbar {
+  width: 6px; 
+}
+
+.scrollableFeed::-webkit-scrollbar-track {
+  background:  transparent;
+}
+
+.scrollableFeed::-webkit-scrollbar-thumb {
+  background: rgb(255, 255, 255 , 0.16);
+  
+}
+
+
+
+
+/* css for messages -->
+
+   */
+
+
+.singleMessageWrapper{
+  margin: 1.1em 3em;
+}
+.box{
+  display: flex !important;
+ padding: 5px;
+}
+.time {
+  font-size: 11px;
+  font-family: 'Times New Roman', Times, serif;
+ 
+  align-self: flex-end;
+}
+.textContainer{
+  border-radius: 7.5px;
+}
+.rightMessage  {
+  text-align: right;
+}
+.rightMessage div{
+
+  display: inline-block;
+  background-color: var(--outgoing-background);
+  border-radius: 7.5px;
+}
+
+.leftMessage  {
+ 
+  word-break:break-all;
+  display: inline-block;
+  background-color: var(--incoming-background);
+}
+.text {
+ padding: 0 4px  0 0;
+}
+.icon{
+  margin: 0 4px;
+  display: flex;
+  align-items: flex-end;
+  align-self: flex-end;
+}
+
+
+
+/* 
+Message Input Box css */
+
+.inputContainer{
+  height: 100%;
+  display: flex;
+  gap: .8em;
+  padding: 1em 1.5em;
+  align-items: center;
+  background-color: var(--header-background-color);
+}
+.inputContainer form{
+  display: flex;
+  width: 100%;
+  gap: 1em;
+}
+.inputContainer button{
+  background-color: transparent;
+  border: none;
+  color: #f0f0f0f8;
+  
+}
+.inputContainer input{
+  width: 100%;
+  padding: .5em;
+  border: none;
+  font-size: 18px;
+  border-radius: 7.5px;
+  background-color: var(--compose-input-background);
+  color: #f0f0f0f8;
+  &:focus{
+    outline: none;
+    border: none;
+  }
+}
+.emojiPickerContainer {
+  overflow: hidden;
+
+  animation: slide-up 0.4s ease forwards;
+}
+@keyframes slide-up {
+  0% {
+      transform: translateY(100%);
+      opacity: 0;
+      
+  }
+  100% {
+      transform: translateY(0);
+      opacity: 1;
+    
+  }
+}
