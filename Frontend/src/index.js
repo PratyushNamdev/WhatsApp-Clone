@@ -6,13 +6,16 @@ import AuthState from "./Context/Authentication/AuthStates";
 import ChatState from "./Context/Chat/ChatStates";
 import LoadingState from "./Context/Loading/LoadingState";
 import SocketState from "./Context/Socket/SocketStates";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <LoadingState>
     <AuthState>
         <SocketState>
       <ChatState>
+       
           <App />
+        
       </ChatState>
         </SocketState>
     </AuthState>

@@ -1,6 +1,13 @@
 .imgBox{
     width: 3em;
     height: 3em;
+    background-color: black;
+    overflow: hidden;
+    margin: 0 auto;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .chatWrapper{
     display: flex;
@@ -21,6 +28,12 @@
 .latestMessage{
     font-size: 15px;
     opacity: .7;
+    display: flex;
+   align-items: center;
+   height: 20px;
+   width: 100%;
+   text-overflow: ellipsis;
+   
 }
 .chatInfo > div{
     width: 100%;
@@ -42,3 +55,8 @@
   
     background-color: var(--unread-marker-background);
 }
+.icon{
+    display: flex;
+    margin-right: 3px;
+    margin-bottom: 1px;
+  }

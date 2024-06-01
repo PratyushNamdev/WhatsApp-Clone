@@ -10,6 +10,17 @@ const chatModel = mongoose.Schema(
       ref: "Message",
     },
     groupAdmin: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    groupDP: {
+      type: {
+        public_id: { type: String, default: "" },
+        url: {
+          type: String,
+          default: "https://res.cloudinary.com/dgxvtemh2/image/upload/v1708440483/whatsappClone/Default_Profile_ahjjqd.png",
+        }
+      },
+
+      
+    }
   },
   { timestamps: true }
 );

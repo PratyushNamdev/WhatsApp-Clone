@@ -26,6 +26,11 @@ const userSchema = new Schema(
         default: "https://res.cloudinary.com/dgxvtemh2/image/upload/v1708440483/whatsappClone/Default_Profile_ahjjqd.png",
       },
     },
+    about:{
+      type: String,
+      default: "I'm really impressed by this clone...",
+
+    },
     verified: {
       type: Boolean,
       default: false,

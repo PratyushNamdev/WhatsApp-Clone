@@ -42,6 +42,7 @@ const signup = async (req, res) => {
       if (user) {
         return res.json({ error: true, message: "E-mail already exist" });
       }
+      
       const salt = await bcrypt.genSalt(10);
       //hashing the password
       const secPass = await bcrypt.hash(req.body.password, salt);

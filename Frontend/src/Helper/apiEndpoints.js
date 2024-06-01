@@ -7,7 +7,9 @@ const apiEndpoints = {
       verifyOTP: '/api/authentication/verifyOTP',
     },
     user:{
-      searchUser:'/api/chat/searchUser/'
+      searchUser:'/api/user/searchUser/',
+      updateProfile:'/api/user/updateProfile',
+      deleteProfilePicture:'/api/user/deleteProfilePicture'
     },
     chat:{
       fetchChats:"/api/chat/fetchChats",
@@ -18,6 +20,9 @@ const apiEndpoints = {
       sendMessage:"/api/message/sendMessage",
        messageSeen:"/api/message/messageSeen"
       
+    },
+    groupChat:{
+      createGroupChat:"/api/chat/createGroupChat"
     }
   };
   

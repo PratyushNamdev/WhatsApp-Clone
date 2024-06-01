@@ -1,11 +1,11 @@
 .editSidebar {
-  position: fixed;
+  position: absolute;
   left: 0;
   top: 0;
   background-color: #fff;
   width: 0px;
   max-width: 428px;
-  height: calc(100vh - 60px);
+  height: 100%;
   transition: all 0.3s ease-in;
   overflow: hidden;
   z-index: 1000;
@@ -14,6 +14,7 @@
 
 .editSidebar.active {
   width: 100%;
+  height: 100%;
 }
 .closeIconWrapper {
   background-color: var(--header-background-color);
@@ -33,6 +34,51 @@
 .closeIconWrapper span :hover {
   cursor: pointer;
 }
+.closeIconWrapper div{
+  font-size: 0.9em;
+}
+.sideBarBody{
+  
+  min-height: calc(100dvh - 120px);
+  background-color: var(--search-input-container-background) !important;
+}
+
+
+/* * the profileImageBox css class is been used in Create Group Component and UserProfile Component */
+.profileImageBox{
+
+  background-color: black;
+    overflow: hidden;
+    position: relative;
+    margin: 0 auto;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+  }
+  
+@keyframes popUp {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1 ;
+  }
+}
+
+.profileImageBox.animate {
+  animation: popUp .5s ease-out;
+  animation-delay: .1s;
+ 
+}
+/* * ----- ----- ----- ----- ----- * */
+
+/* * css written below is for Search User Component */
 .searchBox{
     display: flex;
     align-items: center;
@@ -51,14 +97,7 @@
     border-radius:10px;
 }
 
-.sideBarBody{
-  
-    min-height: calc(100dvh - 120px);
-    background-color: var(--search-input-container-background) !important;
-}
 
-/* 
-Search User componenet search Rersults css */
 
 .searchResultsContainer{
   display: flex;
@@ -73,7 +112,15 @@ Search User componenet search Rersults css */
  }
 }
 .imgBox{
+  background-color: black;
+  overflow: hidden;
   
+  margin: 0 auto;
+
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
    width: 3em;
   height: 3em;
 
@@ -85,3 +132,260 @@ Search User componenet search Rersults css */
   font-size: 15px;
   letter-spacing: .05em;
 }
+
+/* * CSS for searchUser Component ended */
+
+/* * css written below is for CreateGroupModel Component */
+.liItem{
+  padding: 1em .5em;
+ 
+}
+.liItem label{
+  display: flex;
+  align-items: center;
+  &:hover{
+    cursor: pointer;
+  }
+}
+.liItem label input{
+  scale: 1.8;
+  margin:  0 1em;
+  cursor: inherit;
+ accent-color: var(--primary-color);
+
+}
+.liItem label>div{
+  display: flex;
+  align-items: center;
+  gap: .5em;
+}
+.selectGrpMemberList{
+  height: calc(100dvh - 250px);
+  overflow-y: scroll;
+}
+
+.selectGrpMemberList::-webkit-scrollbar {
+  width: 6px; 
+}
+
+.selectGrpMemberList::-webkit-scrollbar-track {
+  background:  transparent;
+}
+
+.selectGrpMemberList::-webkit-scrollbar-thumb {
+  background: rgb(255, 255, 255 , 0.16);
+  
+}
+.rightArrowBtn {
+ display: flex;
+ justify-content: center;
+ margin-top: 2em
+ 
+}
+.rightArrowBtn button{
+  border: none;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  padding: .8em;
+  display: flex;
+  align-items: center;
+
+}
+
+.dummyProfileLabel{
+position: absolute;
+top: 35%;
+right: 20%;
+text-align: center;
+width: 60%;
+
+}
+.imageBox{
+  background-color: black;
+  overflow: hidden;
+  
+  margin: 0 auto;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.imageBox img{
+ 
+  object-fit: cover;
+  
+}
+.grpNameWrapper{
+  margin-left: 1.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5em 0 ;
+  
+
+}
+.grpNameWrapper input{
+  font-size: 1.1em;
+  color: var(  --white-color);
+  border: none;
+  outline: none;
+  padding: .5em .2em;
+  margin: 0 2em;
+  width: 100%;
+  background-color: transparent;
+  border-bottom: 2px solid var(  --primary-color);
+}
+.tickIconWrapper{
+ margin: 4em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5em 0 ;
+  height: 100%;
+  
+}
+.tickIconWrapper span{
+  background-color: var(--unread-marker-background);
+  padding: 1em 1.2em;
+  border: none;
+  border-radius: 50%;
+  height: 100%;
+  cursor: pointer;
+  
+}
+/* *  CSS for createGroupModel ended*/
+
+
+
+/* * css written below is for userProfile Component */
+
+
+
+
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0, 0.7);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  border-radius: 50%;
+}
+
+
+.overlayVisible {
+  opacity: 1;
+}
+
+
+.overlayText {
+  text-align: center;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+.options {
+  position: absolute;
+  top: 280px; /* Adjust to position the options below the image */
+  left: 75%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+  background-color: #233138;
+  padding: 8px 0;
+  border-radius: 5px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 10; 
+  width: 160px;
+  text-align: left;
+  color: #D1D7D8;
+}
+
+.optionButton {
+ 
+ padding: 10px 20px;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+ 
+  transition: background-color 0.3s ease;
+  &:hover{
+    background-color: var(--search-input-container-background);
+}
+}
+
+
+.profileInfo{
+  color: #D1D7D8;
+  margin-top: 2em;
+  padding: 0 1.8em;
+ 
+}
+@keyframes slideDown {
+  0% {
+    transform: translateY(-80%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1; /* Make it fully visible at the end of the animation */
+  }
+}
+.profileInfo.animate { 
+  animation: slideDown 0.8s ease-out;
+  animation-delay: 1ms;
+}
+
+
+.profileInfo small{
+  font-size: 14px;
+  line-height: 2px;
+}
+.profileInfo span{
+  cursor: pointer;
+}
+.nameInfoContainer{
+  margin: 0.8em 0 3em 0;
+}
+.infoHeading{
+  font-size: 14px;
+  color: #008069;
+
+}
+.infoValueWrapper{
+  margin: 0.8em 0 1em 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.editValueWrapper{
+  margin: 0.8em 0 1em 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; 
+  border-bottom: 2px solid var(  --primary-color);
+}
+.editValueWrapper input[type="text"]{
+  padding: 0.5em 0.5em 0.5em 0.2em;
+  font-size: 1em;
+  border: none;
+  outline: none;
+  width: 100%;
+  background-color: transparent;
+ color: #D1D7D8;
+}
+
+
+
+/* * Css for userProfile Ended */

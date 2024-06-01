@@ -1,0 +1,35 @@
+.cropperContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+}
+.cropperContainer input[type="range"]{
+   margin: .5em;
+}
+.btnBox{
+    display: flex;
+   justify-content: center;
+}
+.btnBox button{
+   background-color: var(--primary-color);
+    padding: .5em;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    border: none;
+}
+.cropperHeader{
+    padding: .8em;
+    display: flex;
+    align-items: center;
+    gap: 2em;
+    background-color: var(--header-background-color);
+}
+.cropperHeader button{
+    background-color: transparent;
+    border: none;
+    color: rgba(222, 218, 218, 0.636);
+}
+.cropperHeader article{
+    font-size: 19px;
+}

@@ -1,25 +1,39 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState , useRef} from "react";
 import style from "../../CSS/SideBar.module.css";
 import ChatContext from "../../Context/Chat/ChatContext";
 import { BackIcon } from "../../Helper/icons";
-export default function SearchUser() {
+
+export default function SearchUser({ searchUserModel, setSearchUserModel }) {
   const {
-    searchUserModel,
-    setSearchUserModel,
     searchUser,
     searchUserResults,
     setSearchUserResults,
-    createChat
+    createChat,
   } = useContext(ChatContext);
   const [query, setQuery] = useState("");
+  function debounce(func, delay) {
+    let timerId;
+    return function() {
+      clearTimeout(timerId);
+      timerId = setTimeout(() => {
+        func.apply(this, arguments);
+      }, delay);
+    };
+  }
+  const debounceSearchUserRef = useRef();
+  if (!debounceSearchUserRef.current) {
+    debounceSearchUserRef.current = debounce(searchUser, 600);
+  }
+  
+  
   const handleQueryChange = (e) => {
     setQuery(e.target.value);
-    if(e.target.value === ""){
-      setSearchUserResults(null)
+    if (e.target.value === "") {
+      setSearchUserResults(null);
       return;
     }
-    
-    searchUser(e.target.value);
+
+    debounceSearchUserRef.current(e.target.value);
   };
   return (
     <section
@@ -42,21 +56,26 @@ export default function SearchUser() {
         </div>
 
         <div>
-          {searchUserResults &&  searchUserResults.map((user) => {
-            return (
-              <div className={style.searchResultsContainer} onClick={()=>{
-                createChat(user._id)
-              }}>
-                <div className={style.imgBox}>
-                 <img src={user.profilePic.url} alt="profile Pic" />
+          {searchUserResults &&
+            searchUserResults.map((user) => {
+            let userEmail = user.email.length > 20 ? user.email.substring(0, 20) + "..." : user.email;
+              return (
+                <div
+                  className={style.searchResultsContainer}
+                  onClick={() => {
+                    createChat(user._id , setSearchUserModel);
+                  }}
+                >
+                  <div className={style.imgBox}>
+                    <img src={user.profilePic.url} alt="profile Pic" />
+                  </div>
+                  <div className={style.info}>
+                    <span>{user.userName}</span> <br />
+                    <span className={style.email}>{userEmail}</span>
+                  </div>
                 </div>
-                <div className={style.info}>
-                  <span>{user.userName}</span> <br />
-                  <span className={style.email}>{user.email}</span>
-                </div>
-              </div>
-            );
-          })}
+              );
+            })}
         </div>
       </div>
     </section>

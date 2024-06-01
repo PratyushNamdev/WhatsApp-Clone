@@ -9,7 +9,7 @@ import MessageInputBox from "./MessageInputBox";
 import useSound from "use-sound";
 import Notification from "../../Helper/Notification.mp3";
 import SocketContext from "../../Context/Socket/SocketContext";
-
+import Loading from "../General/Loading";
 var selectedChatCompare, currentChatList, notification, currentAllMessages;
 export default function ChatBox() {
   const { user } = useContext(AuthContext);
@@ -20,10 +20,11 @@ export default function ChatBox() {
     selectedChat,
     fetchMessages,
     allMessages,
-
+    
     setAllMessages,
     chatList,
     setChatList,
+    isMessagesLoading
   } = useContext(ChatContext);
   currentChatList = chatList;
 
@@ -41,7 +42,6 @@ export default function ChatBox() {
   }, [selectedChat]);
 
   useEffect(() => {
-    console.log(chatList);
     socket.on("message recieved", (newMessageRecieved) => {
       if (
         selectedChatCompare &&
@@ -61,7 +61,6 @@ export default function ChatBox() {
           newMessageRecieved.updatedChat.latestMessage;
         // Update chatList state
         setChatList(updatedChatList);
-        //messageSeenFunction([newMessageRecieved.message])
       } else {
         const foundChatIndex = currentChatList.findIndex(
           (chat) => chat._id === newMessageRecieved.message.chatId._id
@@ -82,6 +81,7 @@ export default function ChatBox() {
             messageId: newMessageRecieved.message._id,
             chatId: newMessageRecieved.message.chatId._id,
             senderId: newMessageRecieved.message.sender._id,
+            recipientId: user._id
           });
           notification();
         } else {
@@ -91,30 +91,47 @@ export default function ChatBox() {
       }
     });
 
-    socket.on("Seen Received", ({ userId, message }) => {
+    socket.on("Seen Received", ({ messageId, chatId, senderId , recipientId }) => {
       if (
         selectedChatCompare &&
-        selectedChatCompare.chatId === message.chatId._id
+        selectedChatCompare.chatId === chatId
       ) {
         const foundMessageIndex = currentAllMessages.findIndex(
-          (msg) => msg._id === message._id
+          (msg) => msg._id === messageId
         );
         if (foundMessageIndex !== -1) {
           // Chat object found in chatList
           const updatedMessageList = [...currentAllMessages];
-          updatedMessageList[foundMessageIndex].readBy.push(userId);
-          updatedMessageList[foundMessageIndex].messageDelivered = false;
-
+          let targetRecipient =  updatedMessageList[foundMessageIndex].recipients.find((recipient) => recipient.user._id === recipientId);
+          targetRecipient.status = 'seen';
           setAllMessages(updatedMessageList);
+          const tempChatIndex = currentChatList.findIndex(
+            (chat) => chat._id === chatId
+          );
+          let tempChatList = [...currentChatList];
+          targetRecipient = tempChatList[tempChatIndex].latestMessage.recipients.find((recipient) => recipient.user._id === recipientId);
+         
+          targetRecipient.status = 'seen';
+  
+          setChatList(tempChatList);
         }
       } else {
-        alert("message seen");
+        const tempChatIndex = currentChatList.findIndex(
+          (chat) => chat._id === chatId
+        );
+        let tempChatList = [...currentChatList];
+        let targetRecipient = tempChatList[tempChatIndex].latestMessage.recipients.find((recipient) => recipient.user._id === recipientId);
+       
+        targetRecipient.status = 'seen';
+
+        setChatList(tempChatList);
       }
+      
     });
 
     socket.on(
       "messageDeliveredAcknowledged",
-      ({ messageId, chatId, senderId }) => {
+      ({ messageId, chatId, senderId , recipientId }) => {
         if (selectedChatCompare && selectedChatCompare.chatId === chatId) {
           const foundMessageIndex = currentAllMessages.findIndex(
             (msg) => msg._id === messageId
@@ -122,9 +139,29 @@ export default function ChatBox() {
           if (foundMessageIndex !== -1) {
             // Chat object found in chatList
             const updatedMessageList = [...currentAllMessages];
-            updatedMessageList[foundMessageIndex].messageDelivered = true;
+            let targetRecipient =  updatedMessageList[foundMessageIndex].recipients.find((recipient) => recipient.user._id === recipientId);
+            targetRecipient.status = 'delivered';
             setAllMessages(updatedMessageList);
+            const tempChatIndex = currentChatList.findIndex(
+              (chat) => chat._id === chatId
+            );
+            let tempChatList = [...currentChatList];
+            targetRecipient = tempChatList[tempChatIndex].latestMessage.recipients.find((recipient) => recipient.user._id === recipientId);
+           
+            targetRecipient.status = 'delivered';
+    
+            setChatList(tempChatList);
           }
+        }else{
+          const tempChatIndex = currentChatList.findIndex(
+            (chat) => chat._id === chatId
+          );
+          let tempChatList = [...currentChatList];
+          let targetRecipient = tempChatList[tempChatIndex].latestMessage.recipients.find((recipient) => recipient.user._id === recipientId);
+         
+          targetRecipient.status = 'delivered';
+  
+          setChatList(tempChatList);
         }
       }
     );
@@ -138,7 +175,7 @@ export default function ChatBox() {
           <nav className={style.chatBoxNav}>
             <div className={style.userInfoBox}>
               <div className={style.imgBox}>
-                <img src={selectedChat.connectedUserPic} alt="" />
+                <img src={selectedChat.connectedUserPic} alt="DP" />
               </div>
               <div>
                 <span>{selectedChat.connectedUserName}</span>
@@ -151,9 +188,9 @@ export default function ChatBox() {
 
           <div className={style.messageBox}>
             <span className={style.backgroundImage}></span>
-            <div id="messageBoxContent" className={style.messageBoxContent}>
+           {isMessagesLoading? <div className={style.loading}><Loading/></div>: <div id="messageBoxContent" className={style.messageBoxContent}>
               <ScrollableMessages messages={allMessages} />
-            </div>
+            </div>}
           </div>
 
           <div>
@@ -161,7 +198,18 @@ export default function ChatBox() {
           </div>
         </div>
       ) : (
-        <>This is a whatsapp clone</>
+        <div className={style.infoContainer}>
+         
+            <div className={style.imgwrapperBox}>
+              <img src="https://res.cloudinary.com/dgxvtemh2/image/upload/v1714746439/whatsappClone/whatsapp_2_iaewdc.png" alt="Whatsapp clone logo" />
+            </div>
+            <div className={style.txtwrapperBox}>
+              <h2>Welcome to WhatsApp Clone!</h2>
+              <p>This application is a WhatsApp clone developed using the MERN (MongoDB, Express.js, React.js, Node.js) stack by <strong>Pratyush Namdev </strong> .</p>
+            </div>
+         
+         
+        </div>
       )}
     </>
   );

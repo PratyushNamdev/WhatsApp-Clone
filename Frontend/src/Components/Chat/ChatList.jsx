@@ -6,23 +6,34 @@ import {
   MenuIcon,
   SearchIcon,
   BackIcon,
+  CreateGroupIcon,
 } from "../../Helper/icons";
 import SearchUser from "../General/SearchUser";
 import ChatContext from "../../Context/Chat/ChatContext";
 import SingleChat from "./SingleChat";
-export default function ChatList() {
-  const { user } = useContext(AuthContext);
-  const { setSearchUserModel, chatList, fetchChats } = useContext(ChatContext);
+import CreateGroupModel from "../Feature_Components/CreateGroupModel";
+import UserProfile from "../General/UserProfile";
+export default function ChatList({onViewProfilePic , setImageToCrop}) {
+  const { user , logout} = useContext(AuthContext);
+  const { chatList, fetchChats } = useContext(ChatContext);
+
+  // * isSearching state is to signify weather user is searching someone in the available chat list 
   const [isSearching, setIsSearching] = useState(false);
+  // * searchQuery state is to store the search query entered by the user in the search bar
   const [searchQuery, setSearchQuery] = useState("");
+  // * searchRef state is to store the reference of the search bar input element
   const searchRef = useRef(null);
-  
+  //* searchUser Model state is to signify weather the search new user model(sidebar) is open or not
+  const [searchUserModel, setSearchUserModel] = useState(false);
+  //* createGroup Model state is to signify weather the user is making a new group by opening this sidebar
+  const [createGroupModel, setCreateGroupModel] = useState(false);
+  // * userProfileSideBar state is to signify weather the user is in his profile or in main chat
+  const [userProfileSideBar , setUserProfileSideBar] = useState(false);
   const toggleSearch = () => {
     setIsSearching(!isSearching);
   };
   const handleSearchQuery = (e) => {
     setSearchQuery(e.target.value);
-    console.log(searchQuery);
   };
   const handleSearchQueryClick = () => {
     setIsSearching(true);
@@ -33,20 +44,21 @@ export default function ChatList() {
     } else {
       setSearchQuery("");
     }
-  
   }, [isSearching]);
 
   useEffect(() => {
     fetchChats();
+
     // eslint-disable-next-line
   }, []);
+
   return (
     <>
       {user ? (
         <section className={style.chatListContainer}>
           <nav className={style.header}>
             <div>
-              <div className={style.imgContainer}>
+              <div className={style.imgContainer} onClick={()=> setUserProfileSideBar(true)}>
                 {" "}
                 <img src={user.profilePic.url} alt="" />{" "}
               </div>
@@ -54,14 +66,26 @@ export default function ChatList() {
             <div className={style.iconContainer}>
               <div
                 onClick={() => {
-                  
                   setSearchUserModel(true);
                 }}
               >
                 <NewChatIcon />
               </div>
-              <div>
-                <MenuIcon />
+              <div
+                onClick={() => {
+                  setCreateGroupModel(true);
+                }}
+              >
+                <CreateGroupIcon />
+              </div>
+
+              <div className={style.dropdown}>
+                <div className={style.dropbtn}>
+                  <MenuIcon />
+                </div>
+                <div className={style.dropdownContent}>
+                    <div onClick={logout}  className={style.btnWrapper}><button className={style.btn}>Log Out</button></div>
+                </div>
               </div>
             </div>
           </nav>
@@ -87,27 +111,49 @@ export default function ChatList() {
           <div className={style.chatListing}>
             {chatList ? (
               chatList.map((chat) => {
-                //taking the data of the other user from the users of the array
-                let chatUser = chat.users.filter((chatUser) => {
-                  return user._id !== chatUser._id;
-                });
-  
-                return (
-                  <div key={chat._id}>
-                    <SingleChat chatUser={chatUser[0]} chatData={chat} />
-                  </div>
-                );
+                if (chat.isGroupChat === false) {
+                  //taking the data of the other user from the users of the array
+                  let chatUser = chat.users.filter((chatUser) => {
+                    return user._id !== chatUser._id;
+                  });
+
+                  return (
+                    <div key={chat._id}>
+                      <SingleChat chatUser={chatUser[0]} chatData={chat} />
+                    </div>
+                  );
+                } else {
+                  return (
+                    <div key={chat._id}>
+                      <SingleChat chatData={chat} />
+                    </div>
+                  );
+                }
               })
             ) : (
               <div>Loading</div>
             )}
           </div>
-          <SearchUser/>
+          <SearchUser
+            searchUserModel={searchUserModel}
+            setSearchUserModel={setSearchUserModel}
+          />
+
+          <CreateGroupModel
+            createGroupModel={createGroupModel}
+            setCreateGroupModel={setCreateGroupModel}
+          />
+
+          <UserProfile
+             userProfileSideBar={userProfileSideBar}
+             setUserProfileSideBar = {setUserProfileSideBar}
+             onViewProfilePic = {onViewProfilePic}
+             setImageToCrop={setImageToCrop}
+          />
         </section>
       ) : (
         <div>Loading</div>
       )}
-     
     </>
   );
 }

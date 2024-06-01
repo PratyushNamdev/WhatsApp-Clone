@@ -12,7 +12,7 @@ const AuthState = (props) => {
   const [isOtpModelOpen, setIsOtpModelOpen] = useState(false);
   const [userId, setUserId] = useState("");
   const [email, setEmail] = useState("");
-  //let navigate = useNavigate();
+ 
 
   const signup = async (userName, email, password) => {
      setIsLoading(true);
@@ -111,9 +111,10 @@ const AuthState = (props) => {
         color: "#fff",
       },
     });
-
+    
     setIsLoggedIn(false);
     setIsLoading(false);
+    window.location.reload();
   };
 
   const checkOTP = async (otp) => {

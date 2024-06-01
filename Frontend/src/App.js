@@ -2,11 +2,9 @@ import { useContext, useEffect  } from "react";
 import AuthContext from "./Context/Authentication/AuthContext";
 import Home from "./Pages/Home";
 import AuthenticationPage from "./Pages/AuthenticationPage";
-
 import {Toaster } from "react-hot-toast"
 import LoadingContext from "./Context/Loading/LoadingContext";
 import Loading from "./Components/General/Loading";
-
 function App() {
   const {isLoading } = useContext(LoadingContext)
   useEffect(()=>{
@@ -18,10 +16,6 @@ function App() {
     }
     // eslint-disable-next-line
     },[])
-
-
-
-
   const {isLoggedIn , setIsLoggedIn} = useContext(AuthContext);
   return (
     
@@ -39,7 +33,7 @@ function App() {
       alignItems: 'center',
       zIndex: 9999, // Ensure it's above other content
   }}><Loading/></div>}
-    <Toaster position="top-right"/>
+    <Toaster position="bottom-left" />
      {isLoggedIn ? <Home/>: <AuthenticationPage/>}
     </div>
   );

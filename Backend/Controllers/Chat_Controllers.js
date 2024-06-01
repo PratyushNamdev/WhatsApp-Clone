@@ -79,7 +79,6 @@ const fetchChats = async (req, res) => {
 
   try {
     const chats = await Chat.find({
-      isGroupChat: false,
       users: { $elemMatch: { $eq: userId } }
     })
       .populate({
@@ -88,9 +87,13 @@ const fetchChats = async (req, res) => {
       })
       .populate({
         path: "latestMessage",
-        
+        populate: {
+          path: "recipients.user",
+          select: "userName"
+        }
       })
       .exec();
+     
 
       chats.sort((chat1, chat2) => {
         const createdAt1 = chat1.latestMessage ? chat1.latestMessage.createdAt : 0;
@@ -101,9 +104,14 @@ const fetchChats = async (req, res) => {
       const chatsWithUnseenCount = await Promise.all(chats.map(async (chat) => {
         if (chat.latestMessage !== null) {
           const count = await Message.countDocuments({
-            chatId: chat._id,
-            readBy: { $ne: userId }, // Check if userId is not in the readBy array
-            sender: { $ne: userId } // Exclude messages sent by the user
+              chatId: chat._id,
+          sender: { $ne: userId }, // Exclude messages sent by the user
+          recipients: { 
+            $elemMatch: { 
+              user: userId, 
+              status: { $ne: 'seen' } 
+            } 
+          }
           });
           return { ...chat.toObject(), unseenMessageCount: count };
         } else {
